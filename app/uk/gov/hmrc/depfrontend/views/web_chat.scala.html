@@ -17,6 +17,6 @@
 @import uk.gov.hmrc.depfrontend.config.AppConfig
 @()(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
 
-@main_template(title = "Hello from dep-frontend", bodyClasses = None) {
-    <h1>Hello from dep-frontend !</h1>
+@main_template(messages("global.title"), bodyClasses = None) {
+    <h1>@messages("webchat.headder")</h1>
 }

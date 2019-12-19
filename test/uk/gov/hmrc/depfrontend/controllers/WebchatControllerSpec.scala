@@ -26,7 +26,7 @@ import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
 import uk.gov.hmrc.play.bootstrap.tools.Stubs.stubMessagesControllerComponents
 import uk.gov.hmrc.depfrontend.config.AppConfig
 
-class HelloWorldControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSuite {
+class WebchatControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSuite {
   private val fakeRequest = FakeRequest("GET", "/")
 
   private val env           = Environment.simple()
@@ -35,16 +35,16 @@ class HelloWorldControllerSpec extends WordSpec with Matchers with GuiceOneAppPe
   private val serviceConfig = new ServicesConfig(configuration, new RunMode(configuration, Mode.Dev))
   private val appConfig     = new AppConfig(configuration, serviceConfig)
 
-  private val controller = new HelloWorldController(appConfig, stubMessagesControllerComponents())
+  private val controller = new WebchatController(appConfig, stubMessagesControllerComponents())
 
   "GET /" should {
     "return 200" in {
-      val result = controller.helloWorld(fakeRequest)
+      val result = controller.webchat(fakeRequest)
       status(result) shouldBe Status.OK
     }
 
     "return HTML" in {
-      val result = controller.helloWorld(fakeRequest)
+      val result = controller.webchat(fakeRequest)
       contentType(result) shouldBe Some("text/html")
       charset(result)     shouldBe Some("utf-8")
     }

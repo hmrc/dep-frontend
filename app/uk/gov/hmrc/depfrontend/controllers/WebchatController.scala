@@ -17,8 +17,7 @@
 package uk.gov.hmrc.depfrontend.controllers
 
 import javax.inject.{Inject, Singleton}
-
-import play.api.mvc._
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import uk.gov.hmrc.depfrontend.config.AppConfig
 import uk.gov.hmrc.depfrontend.views.html.web_chat
@@ -34,5 +33,4 @@ class WebchatController @Inject()(appConfig: AppConfig, mcc: MessagesControllerC
   val webchat: Action[AnyContent] = Action.async { implicit request =>
     Future.successful(Ok(web_chat()))
   }
-
 }

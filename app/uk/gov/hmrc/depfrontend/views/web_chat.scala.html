@@ -15,8 +15,8 @@
  *@
 
 @import uk.gov.hmrc.depfrontend.config.AppConfig
-@()(implicit request: Request[_], messages: Messages, appConfig: AppConfig)
+@()(implicit request: Request[_], messages: play.api.i18n.Messages, appConfig: AppConfig)
 
-@main_template(title = "Hello from dep-frontend", bodyClasses = None) {
-    <h1>Hello from dep-frontend !</h1>
+@main_template(Messages("global.nav.title"), bodyClasses = None) {
+    <h1></h1>
 }

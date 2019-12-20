@@ -10,8 +10,7 @@ lazy val scoverageSettings = {
     ScoverageKeys.coverageExcludedPackages :="""uk\.gov\.hmrc\.BuildInfo;.*\.Routes;.*\.RoutesPrefix;.*\.Reverse[^.]*""",
     ScoverageKeys.coverageMinimum := 70,
     ScoverageKeys.coverageFailOnMinimum := false,
-    ScoverageKeys.coverageHighlighting := true,
-    ScoverageKeys.coverageEnabled := true
+    ScoverageKeys.coverageHighlighting := true
   )
 }
 

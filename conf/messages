@@ -1,5 +1,5 @@
 #globle values
-global.title=ask-hmrc
+global.nav.title=AskHMRC - webchat
 
 #webchat page
-webchat.headder=Ask-hmrc
+webchat.title=AskHMRC - webchat

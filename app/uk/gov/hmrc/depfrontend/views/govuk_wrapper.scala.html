@@ -25,7 +25,8 @@
   contentHeader: Option[Html] = None,
   mainContent: Html = HtmlFormat.empty,
   serviceInfoContent: Html = HtmlFormat.empty,
-  scriptElem: Option[Html] = None)(implicit request: Request[_], messages: Messages)
+  scriptElem: Option[Html] = None,
+  navTitle: String = "global.nav.title")(implicit request: Request[_], messages: play.api.i18n.Messages)
 
 @import layouts.{govuk_template => hmrcGovUkTemplate}
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
@@ -42,7 +43,7 @@
 
 @insideHeader = {
     @uiLayouts.header_nav(
-      navTitle = Some("Ask-hmrc"),
+      navTitle = Some(Messages(navTitle)),
       navTitleLink = None,
       showBetaLink = false,
       navLinks = Some(headerNavLinks))

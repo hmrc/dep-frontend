@@ -1,8 +1,11 @@
 #global values
 global.nav.title=Ask HMRC - Webchat
 
+default.title=Webchat
+default.p1=???
+
 
 self.assessment.title=Self Assessment Webchat
-self.assessment.sub.heading=Use the web chat on the side of the page to talk to an adviser
+self.assessment.sub_heading=Use the web chat on the side of the page to talk to an adviser
 self.assessment.p1=Advisers can only talk to you about Self Assessment. They will not be able to transfer you to another webchat team
 

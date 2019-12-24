@@ -2,3 +2,4 @@
 
 GET        /webchat                        uk.gov.hmrc.depfrontend.controllers.WebchatController.webchat(from: Option[String])
 GET        /webchat/self-assessment        uk.gov.hmrc.depfrontend.controllers.WebchatController.selfAssessment
+GET        /webchat/tax-credits            uk.gov.hmrc.depfrontend.controllers.WebchatController.taxCredits

@@ -57,6 +57,12 @@ class WebchatControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSu
       contentAsString(result) shouldBe self_assessment()(fakeRequest, messages, appConfig).toString
     }
 
+    "tax-credits should render the tax-credits webchat page" in {
+      val from = Some("tax-credits")
+      val result = controller.webchat(from)(fakeRequest)
+
+      contentAsString(result) shouldBe tax_credits()(fakeRequest, messages, appConfig).toString
+    }
   }
 
   "fixed URLs" should {
@@ -64,6 +70,12 @@ class WebchatControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSu
       val result = controller.selfAssessment(fakeRequest)
       status(result) shouldBe OK
       contentAsString(result) shouldBe self_assessment()(fakeRequest, messages, appConfig).toString
+    }
+
+    "render tax-credits page" in {
+      val result = controller.taxCredits(fakeRequest)
+      status(result) shouldBe OK
+      contentAsString(result) shouldBe tax_credits()(fakeRequest, messages, appConfig).toString
     }
   }
 }

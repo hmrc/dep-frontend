@@ -18,9 +18,9 @@ package uk.gov.hmrc.depfrontend.controllers
 
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import uk.gov.hmrc.depfrontend.config.AppConfig
-import uk.gov.hmrc.depfrontend.views.html.web_chat
+import uk.gov.hmrc.depfrontend.views.html._
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
 import scala.concurrent.Future
 
@@ -30,7 +30,19 @@ class WebchatController @Inject()(appConfig: AppConfig, mcc: MessagesControllerC
 
   implicit val config: AppConfig = appConfig
 
-  val webchat: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(web_chat()))
+  def webchat(from: Option[String]): Action[AnyContent] = Action.async { implicit request =>
+    from match {
+      case Some("self-assessment") => Future.successful(Ok(self_assessment()))
+      case Some("tax-credits") => Future.successful(Ok(tax_credits()))
+      case _ => Future.successful(Ok(web_chat()))
+    }
+  }
+
+  def selfAssessment: Action[AnyContent] = Action.async { implicit request =>
+    Future.successful(Ok(self_assessment()))
+  }
+
+  def taxCredits: Action[AnyContent] = Action.async { implicit request =>
+    Future.successful(Ok(tax_credits()))
   }
 }

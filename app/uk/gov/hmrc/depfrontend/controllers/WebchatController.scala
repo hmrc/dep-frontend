@@ -30,6 +30,10 @@ class WebchatController @Inject()(appConfig: AppConfig, mcc: MessagesControllerC
 
   implicit val config: AppConfig = appConfig
 
+  def selfAssessment: Action[AnyContent] = Action.async { implicit request =>
+    Future.successful(Ok(self_assessment()))
+  }
+
   def webchat(from: Option[String]): Action[AnyContent] = Action.async { implicit request =>
     from match {
       case Some("self-assessment") => Future.successful(Ok(self_assessment()))

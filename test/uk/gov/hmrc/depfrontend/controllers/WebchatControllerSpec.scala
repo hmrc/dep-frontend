@@ -19,7 +19,6 @@ package uk.gov.hmrc.depfrontend.controllers
 import org.scalatest.{Matchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.i18n.MessagesApi
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.depfrontend.config.AppConfig
@@ -36,24 +35,35 @@ class WebchatControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSu
 
   private val controller = new WebchatController(appConfig, mcc)
 
-  "All optionable strings should be 200" in {
-    forAll { (fromUrl: Option[String]) =>
-      val result = controller.webchat(fromUrl)(fakeRequest)
-      status(result) shouldBe OK
+  "Query paramater URLs" should {
+    "All optionable strings should be 200" in {
+      forAll { (fromUrl: Option[String]) =>
+        val result = controller.webchat(fromUrl)(fakeRequest)
+        status(result) shouldBe OK
+      }
     }
-  }
 
-  Seq(Some("non-page"), None).map { from =>
-    s"non-supported ($from) pages should render default page" in {
+    Seq(Some("non-page"), None).map { from =>
+      s"non-supported ($from) pages should render default page" in {
+        val result = controller.webchat(from)(fakeRequest)
+        contentAsString(result) shouldBe web_chat()(fakeRequest, messages, appConfig).toString
+      }
+    }
+
+    "self-assessment should render the self-assessment webchat page" in {
+      val from = Some("self-assessment")
       val result = controller.webchat(from)(fakeRequest)
-      contentAsString(result) shouldBe web_chat()(fakeRequest, messages, appConfig).toString
+
+      contentAsString(result) shouldBe self_assessment()(fakeRequest, messages, appConfig).toString
     }
+
   }
 
-  "self-assessment should render the self-assessment webchat page" in {
-    val from = Some("self-assessment")
-    val result = controller.webchat(from)(fakeRequest)
-
-    contentAsString(result) shouldBe self_assessment()(fakeRequest, messages, appConfig).toString
+  "fixed URLs" should {
+    "render self-assessment page" in {
+      val result = controller.selfAssessment(fakeRequest)
+      status(result) shouldBe OK
+      contentAsString(result) shouldBe self_assessment()(fakeRequest, messages, appConfig).toString
+    }
   }
 }

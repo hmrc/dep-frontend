@@ -18,36 +18,35 @@ package uk.gov.hmrc.depfrontend.controllers
 
 import org.scalatest.{Matchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.http.Status
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import play.api.i18n.MessagesApi
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import play.api.{Configuration, Environment, _}
-import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
-import uk.gov.hmrc.play.bootstrap.tools.Stubs.stubMessagesControllerComponents
 import uk.gov.hmrc.depfrontend.config.AppConfig
+import uk.gov.hmrc.depfrontend.views.html._
+import uk.gov.hmrc.play.bootstrap.tools.Stubs.stubMessagesControllerComponents
 
-class WebchatControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSuite {
+class WebchatControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with ScalaCheckPropertyChecks {
   private val fakeRequest = FakeRequest("GET", "/")
 
-  private val env           = Environment.simple()
-  private val configuration = Configuration.load(env)
+  lazy val appConfig = app.injector.instanceOf[AppConfig]
 
-  private val serviceConfig = new ServicesConfig(configuration, new RunMode(configuration, Mode.Dev))
-  private val appConfig     = new AppConfig(configuration, serviceConfig)
+  val mcc = stubMessagesControllerComponents()
+  val messages = mcc.messagesApi.preferred(fakeRequest)
 
-  private val controller = new WebchatController(appConfig, stubMessagesControllerComponents())
+  private val controller = new WebchatController(appConfig, mcc)
 
-  "GET /" should {
-    "return 200" in {
-      val result = controller.webchat(fakeRequest)
-      status(result) shouldBe Status.OK
+    "All optionable strings should be 200" in {
+      forAll { (fromUrl: Option[String]) =>
+        val result = controller.webchat(fromUrl)(fakeRequest)
+        status(result) shouldBe OK
+      }
     }
 
-    "return HTML" in {
-      val result = controller.webchat(fakeRequest)
-      contentType(result) shouldBe Some("text/html")
-      charset(result)     shouldBe Some("utf-8")
-    }
+  "self-assessment should render the self-assessment webchat page" in {
+    val from = Some("self-assessment")
+    val result = controller.webchat(from)(fakeRequest)
 
+    contentAsString(result) shouldBe self_assessment()(fakeRequest, messages, appConfig).toString
   }
 }

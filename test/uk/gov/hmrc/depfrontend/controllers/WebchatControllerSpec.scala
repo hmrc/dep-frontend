@@ -36,12 +36,19 @@ class WebchatControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSu
 
   private val controller = new WebchatController(appConfig, mcc)
 
-    "All optionable strings should be 200" in {
-      forAll { (fromUrl: Option[String]) =>
-        val result = controller.webchat(fromUrl)(fakeRequest)
-        status(result) shouldBe OK
-      }
+  "All optionable strings should be 200" in {
+    forAll { (fromUrl: Option[String]) =>
+      val result = controller.webchat(fromUrl)(fakeRequest)
+      status(result) shouldBe OK
     }
+  }
+
+  Seq(Some("non-page"), None).map { from =>
+    s"non-supported ($from) pages should render default page" in {
+      val result = controller.webchat(from)(fakeRequest)
+      contentAsString(result) shouldBe web_chat()(fakeRequest, messages, appConfig).toString
+    }
+  }
 
   "self-assessment should render the self-assessment webchat page" in {
     val from = Some("self-assessment")

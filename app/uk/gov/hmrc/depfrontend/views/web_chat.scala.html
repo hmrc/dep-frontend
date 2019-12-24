@@ -15,19 +15,9 @@
  *@
 
 @import uk.gov.hmrc.depfrontend.config.AppConfig
+@import uk.gov.hmrc.depfrontend.views.html.main_template
 @()(implicit request: Request[_], messages: play.api.i18n.Messages, appConfig: AppConfig)
 
-
-@main_template(Messages("global.nav.title"), bodyClasses = None) {
+@main_template(Messages("global.nav.title")) {
     <h1></h1>
-
- <script type="text/javascript">
-         var nuanceData =
-                 {
-                  'sessionId': 'MY-SESSION',
-                  'sessionID': 'MY-SESSION'
-                 }
- </script>
-
-<script id="webchat-tag" type="text/javascript" src="https://hmrc-uk.digital.nuance.com/chatskins/launch/inqChatLaunch10006719.js"></script>
 }

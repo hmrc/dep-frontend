@@ -38,6 +38,8 @@ class AppConfig @Inject()(config: Configuration,
     s"$contactBaseUrl/contact/problem_reports_nonjs?service=$serviceIdentifier"
   val nuanceUrl: String =
     "https://hmrc-uk.digital.nuance.com/chatskins/launch/inqChatLaunch10006719.js"
+  val contactUrl: String =
+    "https://www.gov.uk/government/organisations/hm-revenue-customs/contact"
   val incomeTaxHelpUrl: String =
     "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-individuals-pensioners-and-employees"
   val childBenefitHelpUrl: String =

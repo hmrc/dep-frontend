@@ -25,7 +25,11 @@ import uk.gov.hmrc.depfrontend.config.AppConfig
 import uk.gov.hmrc.depfrontend.views.html._
 import uk.gov.hmrc.play.bootstrap.tools.Stubs.stubMessagesControllerComponents
 
-class WebchatControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with ScalaCheckPropertyChecks {
+class WebchatControllerSpec
+    extends WordSpec
+    with Matchers
+    with GuiceOneAppPerSuite
+    with ScalaCheckPropertyChecks {
   private val fakeRequest = FakeRequest("GET", "/")
 
   lazy val appConfig = app.injector.instanceOf[AppConfig]
@@ -46,7 +50,9 @@ class WebchatControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSu
     Seq(Some("non-page"), None).map { from =>
       s"non-supported ($from) pages should render default page" in {
         val result = controller.webchat(from)(fakeRequest)
-        contentAsString(result) shouldBe web_chat()(fakeRequest, messages, appConfig).toString
+        contentAsString(result) shouldBe web_chat()(fakeRequest,
+                                                    messages,
+                                                    appConfig).toString
       }
     }
 
@@ -54,14 +60,18 @@ class WebchatControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSu
       val from = Some("self-assessment")
       val result = controller.webchat(from)(fakeRequest)
 
-      contentAsString(result) shouldBe self_assessment()(fakeRequest, messages, appConfig).toString
+      contentAsString(result) shouldBe self_assessment()(fakeRequest,
+                                                         messages,
+                                                         appConfig).toString
     }
 
     "tax-credits should render the tax-credits webchat page" in {
       val from = Some("tax-credits")
       val result = controller.webchat(from)(fakeRequest)
 
-      contentAsString(result) shouldBe tax_credits()(fakeRequest, messages, appConfig).toString
+      contentAsString(result) shouldBe tax_credits()(fakeRequest,
+                                                     messages,
+                                                     appConfig).toString
     }
   }
 
@@ -69,13 +79,25 @@ class WebchatControllerSpec extends WordSpec with Matchers with GuiceOneAppPerSu
     "render self-assessment page" in {
       val result = controller.selfAssessment(fakeRequest)
       status(result) shouldBe OK
-      contentAsString(result) shouldBe self_assessment()(fakeRequest, messages, appConfig).toString
+      contentAsString(result) shouldBe self_assessment()(fakeRequest,
+                                                         messages,
+                                                         appConfig).toString
     }
 
     "render tax-credits page" in {
       val result = controller.taxCredits(fakeRequest)
       status(result) shouldBe OK
-      contentAsString(result) shouldBe tax_credits()(fakeRequest, messages, appConfig).toString
+      contentAsString(result) shouldBe tax_credits()(fakeRequest,
+                                                     messages,
+                                                     appConfig).toString
+    }
+
+    "render child benefit page" in {
+      val result = controller.childBenefit(fakeRequest)
+      status(result) shouldBe OK
+      contentAsString(result) shouldBe child_benefit()(fakeRequest,
+                                                       messages,
+                                                       appConfig).toString
     }
   }
 }

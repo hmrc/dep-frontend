@@ -15,6 +15,7 @@
  *@
 
 @import uk.gov.hmrc.depfrontend.config.AppConfig
+@import uk.gov.hmrc.depfrontend.views.html.includes.return_link
 @(title: String,
   sidebarLinks: Option[Html] = None,
   contentHeader: Option[Html] = None,
@@ -33,6 +34,10 @@
     }
 }
 
+@wrapMainContent = {
+    @mainContent
+    @return_link()(appConfig)
+}
 
 @govuk_wrapper(appConfig = appConfig,
                title = title,
@@ -40,7 +45,7 @@
                bodyClasses = bodyClasses,
                sidebar = sidebar,
                contentHeader = contentHeader,
-               mainContent = layouts.article(mainContent),
+               mainContent = layouts.article(wrapMainContent),
                serviceInfoContent = serviceInfoContent,
                scriptElem = scriptElem
 )

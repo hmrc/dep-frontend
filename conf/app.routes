@@ -1,6 +1,11 @@
 # microservice specific routes
 
-GET        /webchat                        uk.gov.hmrc.depfrontend.controllers.WebchatController.webchat(from: Option[String])
-GET        /webchat/self-assessment        uk.gov.hmrc.depfrontend.controllers.WebchatController.selfAssessment
-GET        /webchat/tax-credits            uk.gov.hmrc.depfrontend.controllers.WebchatController.taxCredits
-GET        /webchat/child-benefit          uk.gov.hmrc.depfrontend.controllers.WebchatController.childBenefit
+GET        /webchat                                                         uk.gov.hmrc.depfrontend.controllers.WebchatController.webchat(from: Option[String])
+GET        /webchat/self-assessment                                         uk.gov.hmrc.depfrontend.controllers.WebchatController.selfAssessment
+GET        /webchat/tax-credits                                             uk.gov.hmrc.depfrontend.controllers.WebchatController.taxCredits
+GET        /webchat/child-benefit                                           uk.gov.hmrc.depfrontend.controllers.WebchatController.childBenefit
+GET        /webchat/employer-enquiries                                      uk.gov.hmrc.depfrontend.controllers.WebchatController.employerEnquiries
+GET        /webchat/vat-enquiries                                           uk.gov.hmrc.depfrontend.controllers.WebchatController.vatEnquiries
+GET        /webchat/online-services-helpdesk                                uk.gov.hmrc.depfrontend.controllers.WebchatController.onlineServicesHelpdesk
+GET        /webchat/national-insurance-numbers                              uk.gov.hmrc.depfrontend.controllers.WebchatController.nationalInsuranceNumbers
+GET        /webchat/customs-international-trade-and-excise-enquiries        uk.gov.hmrc.depfrontend.controllers.WebchatController.customsEnquiries

@@ -53,4 +53,26 @@ class WebchatController @Inject()(appConfig: AppConfig,
   def childBenefit: Action[AnyContent] = Action.async { implicit request =>
     Future.successful(Ok(child_benefit()))
   }
+
+  def employerEnquiries: Action[AnyContent] = Action.async { implicit request =>
+    Future.successful(Ok(employer_enquiries()))
+  }
+
+  def vatEnquiries: Action[AnyContent] = Action.async { implicit request =>
+    Future.successful(Ok(vat_enquiries()))
+  }
+
+  def onlineServicesHelpdesk: Action[AnyContent] = Action.async {
+    implicit request =>
+      Future.successful(Ok(online_service_helpdesk()))
+  }
+
+  def nationalInsuranceNumbers: Action[AnyContent] = Action.async {
+    implicit request =>
+      Future.successful(Ok(national_insurance_numbers()))
+  }
+
+  def customsEnquiries: Action[AnyContent] = Action.async { implicit request =>
+    Future.successful(Ok(customs_enquiries()))
+  }
 }

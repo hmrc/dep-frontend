@@ -99,5 +99,47 @@ class WebchatControllerSpec
                                                        messages,
                                                        appConfig).toString
     }
+
+    "render employer enquiries page" in {
+      val result = controller.employerEnquiries(fakeRequest)
+      status(result) shouldBe OK
+      contentAsString(result) shouldBe employer_enquiries()(fakeRequest,
+                                                            messages,
+                                                            appConfig).toString
+    }
+
+    "render vat enquiries page" in {
+      val result = controller.vatEnquiries(fakeRequest)
+      status(result) shouldBe OK
+      contentAsString(result) shouldBe vat_enquiries()(fakeRequest,
+                                                       messages,
+                                                       appConfig).toString
+    }
+
+    "render online services helpdesk page" in {
+      val result = controller.onlineServicesHelpdesk(fakeRequest)
+      status(result) shouldBe OK
+      contentAsString(result) shouldBe online_service_helpdesk()(
+        fakeRequest,
+        messages,
+        appConfig).toString
+    }
+
+    "render national insurance page" in {
+      val result = controller.nationalInsuranceNumbers(fakeRequest)
+      status(result) shouldBe OK
+      contentAsString(result) shouldBe national_insurance_numbers()(
+        fakeRequest,
+        messages,
+        appConfig).toString
+    }
+
+    "render customs page" in {
+      val result = controller.customsEnquiries(fakeRequest)
+      status(result) shouldBe OK
+      contentAsString(result) shouldBe customs_enquiries()(fakeRequest,
+                                                           messages,
+                                                           appConfig).toString
+    }
   }
 }

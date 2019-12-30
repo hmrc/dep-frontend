@@ -20,8 +20,7 @@
   sidebarLinks: Option[Html] = None,
   contentHeader: Option[Html] = None,
   bodyClasses: Option[String] = None,
-  mainClass: Option[String] = None,
-  scriptElem: Option[Html] = None)(mainContent: Html)(implicit request : Request[_], messages: Messages, appConfig: AppConfig)
+  mainClass: Option[String] = None)(mainContent: Html)(implicit request : Request[_], messages: Messages, appConfig: AppConfig)
 
 @import uk.gov.hmrc.play.views.html.layouts
 
@@ -39,6 +38,26 @@
     @return_link()(appConfig)
 }
 
+@webchatSessionId = @{
+    request.cookies.get("mdtp") match {
+    case Some(cookie) => cookie.value
+    case None => throw new RuntimeException("Cannot proceed without a mdtp cookie")
+    }
+}
+
+@scriptElem = {
+   <div id="HMRC_Anchored_1"></div>
+
+    <script type="text/javascript">
+        var nuanceData =
+            {
+                'mdtpdfSessionId': '@webchatSessionId'
+            }
+    </script>
+
+    <script id="webchat-tag" type="text/javascript" src=@appConfig.nuanceUrl></script>
+}
+
 @govuk_wrapper(appConfig = appConfig,
                title = title,
                mainClass = mainClass,
@@ -47,5 +66,5 @@
                contentHeader = contentHeader,
                mainContent = layouts.article(wrapMainContent),
                serviceInfoContent = serviceInfoContent,
-               scriptElem = scriptElem
+               scriptElem = Some(scriptElem)
 )

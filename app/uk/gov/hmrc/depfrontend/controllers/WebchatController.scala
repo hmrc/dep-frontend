@@ -17,7 +17,6 @@
 package uk.gov.hmrc.depfrontend.controllers
 
 import javax.inject.{Inject, Singleton}
-import play.api.i18n.Messages
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.depfrontend.config.AppConfig
 import uk.gov.hmrc.depfrontend.views.html._
@@ -74,5 +73,9 @@ class WebchatController @Inject()(appConfig: AppConfig,
 
   def customsEnquiries: Action[AnyContent] = Action.async { implicit request =>
     Future.successful(Ok(customs_enquiries()))
+  }
+
+  def incomeTaxEnquiries: Action[AnyContent] = Action.async { implicit request =>
+    Future.successful(Ok(income_tax_enquiries()))
   }
 }

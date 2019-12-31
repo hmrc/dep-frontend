@@ -19,6 +19,7 @@ package uk.gov.hmrc.depfrontend.controllers
 import org.scalatest.{Matchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import play.api.mvc.Cookie
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.depfrontend.config.AppConfig
@@ -30,7 +31,8 @@ class WebchatControllerSpec
     with Matchers
     with GuiceOneAppPerSuite
     with ScalaCheckPropertyChecks {
-  private val fakeRequest = FakeRequest("GET", "/")
+
+  private val fakeRequest = FakeRequest("GET", "/").withCookies(Cookie("mdtp", "12345"))
 
   lazy val appConfig = app.injector.instanceOf[AppConfig]
 
@@ -38,6 +40,12 @@ class WebchatControllerSpec
   val messages = mcc.messagesApi.preferred(fakeRequest)
 
   private val controller = new WebchatController(appConfig, mcc)
+
+  "should throw if there is no mdtp cookie" in {
+    assertThrows[RuntimeException] {
+      controller.selfAssessment(FakeRequest("GET", "/"))
+    }
+  }
 
   "Query paramater URLs" should {
     "All optionable strings should be 200" in {
@@ -138,8 +146,16 @@ class WebchatControllerSpec
       val result = controller.customsEnquiries(fakeRequest)
       status(result) shouldBe OK
       contentAsString(result) shouldBe customs_enquiries()(fakeRequest,
-                                                           messages,
-                                                           appConfig).toString
+        messages,
+        appConfig).toString
+    }
+
+    "render income tax enquiries page" in {
+      val result = controller.incomeTaxEnquiries(fakeRequest)
+      status(result) shouldBe OK
+      contentAsString(result) shouldBe income_tax_enquiries()(fakeRequest,
+        messages,
+        appConfig).toString
     }
   }
 }

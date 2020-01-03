@@ -1,5 +1,5 @@
 @*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,10 @@
  *@
 
 @import uk.gov.hmrc.depfrontend.config.AppConfig
-@import uk.gov.hmrc.depfrontend.views.html.main_template
+@import uk.gov.hmrc.depfrontend.views.html._
+
+@this(main_template: MainTemplate)
+
 @()(implicit request: Request[_], messages: play.api.i18n.Messages, appConfig: AppConfig)
 
 @main_template(messages("global.nav.title")) {

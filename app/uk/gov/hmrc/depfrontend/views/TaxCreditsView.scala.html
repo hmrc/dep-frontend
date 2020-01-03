@@ -1,5 +1,5 @@
 @*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,15 @@
  *@
 
 @import uk.gov.hmrc.depfrontend.config.AppConfig
-@import uk.gov.hmrc.depfrontend.views.html.main_template
+@import uk.gov.hmrc.depfrontend.views.html._
 
+@this(main_template: MainTemplate)
 @()(implicit request: Request[_], messages: play.api.i18n.Messages, appConfig: AppConfig)
 
 @main_template(messages("global.nav.title")) {
-    <h1>@messages("employers.enquiries.title")</h1>
-    <h2>@messages("default.sub.heading")</h2>
+ <h1>@messages("tax.credits.title")</h1>
 
-    <p>@messages("employers.enquiries.p1")</p>
-    <p>@messages("employers.enquiries.p2")</p>
+ <h2>@messages("default.sub.heading")</h2>
 
-    <p>
-        @messages("employers.enquiries.link.p1")
-        <a href="@appConfig.incomeTaxHelpUrl">@messages("employers.enquiries.link.text")</a>
-        @messages("employers.enquiries.link.p2")
-    </p>
+ <p>@messages("tax.credits.p1")</p>
 }

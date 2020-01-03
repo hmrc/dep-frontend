@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,16 +32,37 @@ class WebchatControllerSpec
     with GuiceOneAppPerSuite
     with ScalaCheckPropertyChecks {
 
-  private val fakeRequest = FakeRequest("GET", "/").withCookies(Cookie("mdtp", "12345"))
+  implicit private val fakeRequest = FakeRequest("GET", "/").withCookies(Cookie("mdtp", "12345"))
 
-  lazy val appConfig = app.injector.instanceOf[AppConfig]
+  implicit val appConfig = app.injector.instanceOf[AppConfig]
+  val selfAssessmentView = app.injector.instanceOf[SelfAssessmentView]
+  val taxCreditsView = app.injector.instanceOf[TaxCreditsView]
+  val childBenefitView = app.injector.instanceOf[ChildBenefitView]
+  val customsEnquiriesView = app.injector.instanceOf[CustomsEnquiriesView]
+  val employerEnquiriesView = app.injector.instanceOf[EmployerEnquiriesView]
+  val incomeTaxEnquiriesView = app.injector.instanceOf[IncomeTaxEnquiriesView]
+  val nationalInsuranceNumbersView = app.injector.instanceOf[NationalInsuranceNumbersView]
+  val onlineServiceHelpdeskView = app.injector.instanceOf[OnlineServiceHelpdeskView]
+  val vatEnquiriesView = app.injector.instanceOf[VatEnquiriesView]
+  val webChatView = app.injector.instanceOf[WebChatView]
 
   val mcc = stubMessagesControllerComponents()
-  val messages = mcc.messagesApi.preferred(fakeRequest)
+  implicit val messages = mcc.messagesApi.preferred(fakeRequest)
 
-  private val controller = new WebchatController(appConfig, mcc)
+  private val controller = new WebchatController(appConfig,
+    mcc,
+    selfAssessmentView,
+    taxCreditsView,
+    childBenefitView,
+    customsEnquiriesView,
+    employerEnquiriesView,
+    incomeTaxEnquiriesView,
+    nationalInsuranceNumbersView,
+    onlineServiceHelpdeskView,
+    vatEnquiriesView,
+    webChatView)
 
-  "should throw if there is no mdtp cookie" in {
+  "should throw a RuntimeException if there is no mdtp cookie" in {
     assertThrows[RuntimeException] {
       controller.selfAssessment(FakeRequest("GET", "/"))
     }
@@ -58,9 +79,7 @@ class WebchatControllerSpec
     Seq(Some("non-page"), None).map { from =>
       s"non-supported ($from) pages should render default page" in {
         val result = controller.webchat(from)(fakeRequest)
-        contentAsString(result) shouldBe web_chat()(fakeRequest,
-                                                    messages,
-                                                    appConfig).toString
+        contentAsString(result) shouldBe webChatView().toString
       }
     }
 
@@ -68,18 +87,14 @@ class WebchatControllerSpec
       val from = Some("self-assessment")
       val result = controller.webchat(from)(fakeRequest)
 
-      contentAsString(result) shouldBe self_assessment()(fakeRequest,
-                                                         messages,
-                                                         appConfig).toString
+      contentAsString(result) shouldBe selfAssessmentView().toString
     }
 
     "tax-credits should render the tax-credits webchat page" in {
       val from = Some("tax-credits")
       val result = controller.webchat(from)(fakeRequest)
 
-      contentAsString(result) shouldBe tax_credits()(fakeRequest,
-                                                     messages,
-                                                     appConfig).toString
+      contentAsString(result) shouldBe taxCreditsView().toString()
     }
   }
 
@@ -87,75 +102,56 @@ class WebchatControllerSpec
     "render self-assessment page" in {
       val result = controller.selfAssessment(fakeRequest)
       status(result) shouldBe OK
-      contentAsString(result) shouldBe self_assessment()(fakeRequest,
-                                                         messages,
-                                                         appConfig).toString
+
+      contentAsString(result) shouldBe selfAssessmentView().toString
     }
 
     "render tax-credits page" in {
       val result = controller.taxCredits(fakeRequest)
       status(result) shouldBe OK
-      contentAsString(result) shouldBe tax_credits()(fakeRequest,
-                                                     messages,
-                                                     appConfig).toString
+      contentAsString(result) shouldBe taxCreditsView().toString()
     }
 
     "render child benefit page" in {
       val result = controller.childBenefit(fakeRequest)
       status(result) shouldBe OK
-      contentAsString(result) shouldBe child_benefit()(fakeRequest,
-                                                       messages,
-                                                       appConfig).toString
+      contentAsString(result) shouldBe childBenefitView().toString
     }
 
     "render employer enquiries page" in {
       val result = controller.employerEnquiries(fakeRequest)
       status(result) shouldBe OK
-      contentAsString(result) shouldBe employer_enquiries()(fakeRequest,
-                                                            messages,
-                                                            appConfig).toString
+      contentAsString(result) shouldBe employerEnquiriesView().toString
     }
 
     "render vat enquiries page" in {
       val result = controller.vatEnquiries(fakeRequest)
       status(result) shouldBe OK
-      contentAsString(result) shouldBe vat_enquiries()(fakeRequest,
-                                                       messages,
-                                                       appConfig).toString
+      contentAsString(result) shouldBe vatEnquiriesView().toString
     }
 
     "render online services helpdesk page" in {
       val result = controller.onlineServicesHelpdesk(fakeRequest)
       status(result) shouldBe OK
-      contentAsString(result) shouldBe online_service_helpdesk()(
-        fakeRequest,
-        messages,
-        appConfig).toString
+      contentAsString(result) shouldBe onlineServiceHelpdeskView().toString
     }
 
     "render national insurance page" in {
       val result = controller.nationalInsuranceNumbers(fakeRequest)
       status(result) shouldBe OK
-      contentAsString(result) shouldBe national_insurance_numbers()(
-        fakeRequest,
-        messages,
-        appConfig).toString
+      contentAsString(result) shouldBe nationalInsuranceNumbersView().toString
     }
 
     "render customs page" in {
       val result = controller.customsEnquiries(fakeRequest)
       status(result) shouldBe OK
-      contentAsString(result) shouldBe customs_enquiries()(fakeRequest,
-        messages,
-        appConfig).toString
+      contentAsString(result) shouldBe customsEnquiriesView().toString
     }
 
     "render income tax enquiries page" in {
       val result = controller.incomeTaxEnquiries(fakeRequest)
       status(result) shouldBe OK
-      contentAsString(result) shouldBe income_tax_enquiries()(fakeRequest,
-        messages,
-        appConfig).toString
+      contentAsString(result) shouldBe incomeTaxEnquiriesView().toString
     }
   }
 }

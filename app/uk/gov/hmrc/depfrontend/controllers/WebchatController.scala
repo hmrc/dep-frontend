@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,17 @@ import scala.concurrent.Future
 
 @Singleton
 class WebchatController @Inject()(appConfig: AppConfig,
-                                  mcc: MessagesControllerComponents)
+                                  mcc: MessagesControllerComponents,
+                                  selfAssessmentView: SelfAssessmentView,
+                                  taxCreditsView: TaxCreditsView,
+                                  childBenefitView: ChildBenefitView,
+                                  customsEnquiriesView: CustomsEnquiriesView,
+                                  employerEnquiriesView: EmployerEnquiriesView,
+                                  incomeTaxEnquiriesView: IncomeTaxEnquiriesView,
+                                  nationalInsuranceNumbersView: NationalInsuranceNumbersView,
+                                  onlineServiceHelpdeskView: OnlineServiceHelpdeskView,
+                                  vatEnquiriesView: VatEnquiriesView,
+                                  webChatView: WebChatView)
     extends FrontendController(mcc) {
 
   implicit val config: AppConfig = appConfig
@@ -34,48 +44,48 @@ class WebchatController @Inject()(appConfig: AppConfig,
   def webchat(from: Option[String]): Action[AnyContent] = Action.async {
     implicit request =>
       from match {
-        case Some("self-assessment") => Future.successful(Ok(self_assessment()))
-        case Some("tax-credits")     => Future.successful(Ok(tax_credits()))
+        case Some("self-assessment") => Future.successful(Ok(selfAssessmentView()))
+        case Some("tax-credits")     => Future.successful(Ok(taxCreditsView()))
         case _ =>
-          Future.successful(Ok(web_chat()))
+          Future.successful(Ok(webChatView()))
       }
   }
 
   def selfAssessment: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(self_assessment()))
+    Future.successful(Ok(selfAssessmentView()))
   }
 
   def taxCredits: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(tax_credits()))
+    Future.successful(Ok(taxCreditsView()))
   }
 
   def childBenefit: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(child_benefit()))
+    Future.successful(Ok(childBenefitView()))
   }
 
   def employerEnquiries: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(employer_enquiries()))
+    Future.successful(Ok(employerEnquiriesView()))
   }
 
   def vatEnquiries: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(vat_enquiries()))
+    Future.successful(Ok(vatEnquiriesView()))
   }
 
   def onlineServicesHelpdesk: Action[AnyContent] = Action.async {
     implicit request =>
-      Future.successful(Ok(online_service_helpdesk()))
+      Future.successful(Ok(onlineServiceHelpdeskView()))
   }
 
   def nationalInsuranceNumbers: Action[AnyContent] = Action.async {
     implicit request =>
-      Future.successful(Ok(national_insurance_numbers()))
+      Future.successful(Ok(nationalInsuranceNumbersView()))
   }
 
   def customsEnquiries: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(customs_enquiries()))
+    Future.successful(Ok(customsEnquiriesView()))
   }
 
   def incomeTaxEnquiries: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(income_tax_enquiries()))
+    Future.successful(Ok(incomeTaxEnquiriesView()))
   }
 }

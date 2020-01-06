@@ -44,6 +44,7 @@ class WebchatControllerSpec
   val nationalInsuranceNumbersView = app.injector.instanceOf[NationalInsuranceNumbersView]
   val onlineServiceHelpdeskView = app.injector.instanceOf[OnlineServiceHelpdeskView]
   val vatEnquiriesView = app.injector.instanceOf[VatEnquiriesView]
+  val vatOnlineServicesHelpdeskView = app.injector.instanceOf[VatOnlineServicesHelpdeskView]
   val webChatView = app.injector.instanceOf[WebChatView]
 
   val mcc = stubMessagesControllerComponents()
@@ -60,6 +61,7 @@ class WebchatControllerSpec
     nationalInsuranceNumbersView,
     onlineServiceHelpdeskView,
     vatEnquiriesView,
+    vatOnlineServicesHelpdeskView,
     webChatView)
 
   "should throw a RuntimeException if there is no mdtp cookie" in {
@@ -128,6 +130,12 @@ class WebchatControllerSpec
       val result = controller.vatEnquiries(fakeRequest)
       status(result) shouldBe OK
       contentAsString(result) shouldBe vatEnquiriesView().toString
+    }
+
+    "render vat online helpdesk page" in {
+      val result = controller.vatOnlineServicesHelpdesk(fakeRequest)
+      status(result) shouldBe OK
+      contentAsString(result) shouldBe vatOnlineServicesHelpdeskView().toString
     }
 
     "render online services helpdesk page" in {

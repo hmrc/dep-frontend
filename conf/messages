@@ -24,6 +24,8 @@ employers.enquiries.link.p2=for enquiries about your personal tax affairs.
 vat.enquiries.title=VAT Webchat
 vat.enquiries.p1=Advisers can only talk to you about VAT, Making Tax Digital for VAT or using VAT online services. They will not be able to transfer you to another webchat team
 
+vat.online.helpdesk.title=VAT Online Service Webchat
+
 online.services.title=Technical support with HMRC online services Webchat
 online.services.p1=Advisers can only talk to you about technical issues you’re having with HMRC online services.
 online.services.p2=They will not be able to transfer you to another webchat team, or help with questions about:

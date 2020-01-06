@@ -36,6 +36,7 @@ class WebchatController @Inject()(appConfig: AppConfig,
                                   nationalInsuranceNumbersView: NationalInsuranceNumbersView,
                                   onlineServiceHelpdeskView: OnlineServiceHelpdeskView,
                                   vatEnquiriesView: VatEnquiriesView,
+                                  vatOnlineServiceHelpdeskView: VatOnlineServicesHelpdeskView,
                                   webChatView: WebChatView)
     extends FrontendController(mcc) {
 
@@ -74,6 +75,10 @@ class WebchatController @Inject()(appConfig: AppConfig,
   def onlineServicesHelpdesk: Action[AnyContent] = Action.async {
     implicit request =>
       Future.successful(Ok(onlineServiceHelpdeskView()))
+  }
+
+  def vatOnlineServicesHelpdesk: Action[AnyContent] = Action.async { implicit request =>
+    Future.successful(Ok(vatOnlineServiceHelpdeskView()))
   }
 
   def nationalInsuranceNumbers: Action[AnyContent] = Action.async {

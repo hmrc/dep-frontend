@@ -17,7 +17,11 @@
 @import uk.gov.hmrc.depfrontend.config.AppConfig
 @import uk.gov.hmrc.depfrontend.views.html.includes.return_link
 
-@this()
+@this(
+    govuk_wrapper: GovukWrapper,
+    sidebar: Sidebar,
+    article: Article
+)
 
 @(title: String,
   sidebarLinks: Option[Html] = None,
@@ -30,9 +34,9 @@
 
 @serviceInfoContent = {}
 
-@sidebar = {
+@sidebarContent = {
     @if(sidebarLinks.isDefined) {
-        @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
+        @sidebar(sidebarLinks.get, Some("sidebar"))
     }
 }
 
@@ -65,9 +69,9 @@
                title = title,
                mainClass = mainClass,
                bodyClasses = bodyClasses,
-               sidebar = sidebar,
+               sidebar = sidebarContent,
                contentHeader = contentHeader,
-               mainContent = layouts.article(wrapMainContent),
+               mainContent = article(wrapMainContent),
                serviceInfoContent = serviceInfoContent,
                scriptElem = Some(scriptElem)
 )

@@ -16,6 +16,19 @@
 
 @import uk.gov.hmrc.depfrontend.config.AppConfig
 @import play.twirl.api.HtmlFormat
+@import views.html.layouts.GovUkTemplate
+
+@this(
+    head:Head,
+    header_nav:HeaderNav,
+    footer:Footer,
+    serviceInfo:ServiceInfo,
+    main_content_header:MainContentHeader,
+    main_content:MainContent,
+    reportAProblemLink: ReportAProblemLink,
+    hmrcGovUkTemplate: GovUkTemplate,
+    footer_links: FooterLinks
+)
 
 @(appConfig: AppConfig,
         title: String,
@@ -29,31 +42,31 @@
         scriptElem: Option[Html] = None,
         navTitle: String = "global.nav.title")(implicit request: Request[_], messages: play.api.i18n.Messages)
 
-@import layouts.{govuk_template => hmrcGovUkTemplate}
+
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
 @import uk.gov.hmrc.play.views.html.{helpers => uiHelpers}
 
-@head = {
-@uiLayouts.head(
-    linkElem = None,
-    headScripts = None)
-    <meta name="format-detection" content="telephone=no" />
-}
+@headContent = {
+    @head(
+        linkElem = None,
+        headScripts = None)
+        <meta name="format-detection" content="telephone=no" />
+    }
 
 @headerNavLinks = {}
 
 @insideHeader = {
-@uiLayouts.header_nav(
-    navTitle = Some(Messages(navTitle)),
-    navTitleLink = None,
-    showBetaLink = false,
-    navLinks = Some(headerNavLinks))
+    @header_nav(
+        navTitle = Some(Messages(navTitle)),
+        navTitleLink = None,
+        showBetaLink = false,
+        navLinks = Some(headerNavLinks))
 }
 
 @afterHeader = {}
 
 @bodyEnd = {
-    @uiLayouts.footer(
+    @footer(
         analyticsToken = Some(appConfig.analyticsToken),
         analyticsHost = appConfig.analyticsHost,
         ssoUrl = None,
@@ -64,8 +77,8 @@
 @footerTop = {}
 @footerLinks = {}
 
-@serviceInfo = {
-    @uiLayouts.serviceInfo(
+@serviceInfoBlock = {
+    @serviceInfo(
         betaBanner = HtmlFormat.empty,
         includeGridWrapper = false,
         serviceInfoContent = Some(serviceInfoContent))
@@ -73,23 +86,23 @@
 
 @mainContentHeader = {
     @if(contentHeader.isDefined) {
-        @uiLayouts.main_content_header(contentHeader = contentHeader.get)
+        @main_content_header(contentHeader = contentHeader.get)
     }
 }
 
 @getHelpForm = @{
-    uiHelpers.reportAProblemLink(appConfig.reportAProblemPartialUrl, appConfig.reportAProblemNonJSUrl)
+    reportAProblemLink(appConfig.reportAProblemPartialUrl, appConfig.reportAProblemNonJSUrl)
 }
 
 @content = {
-    @uiLayouts.main_content(
+    @main_content(
         article = mainContent,
         mainClass = mainClass,
         mainDataAttributes = mainDataAttributes,
         mainContentHeader = mainContentHeader,
-        serviceInfo = serviceInfo,
+        serviceInfo = serviceInfoBlock,
         getHelpForm = getHelpForm,
         sidebar = sidebar)
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiLayouts.footer_links()), true)(content)
+@hmrcGovUkTemplate(Some(title), bodyClasses)(headContent, bodyEnd, insideHeader, afterHeader, footerTop, Some(footer_links()), true)(content)

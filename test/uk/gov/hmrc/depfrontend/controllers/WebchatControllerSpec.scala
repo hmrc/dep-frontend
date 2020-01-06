@@ -49,8 +49,7 @@ class WebchatControllerSpec
   val mcc = stubMessagesControllerComponents()
   implicit val messages = mcc.messagesApi.preferred(fakeRequest)
 
-  private val controller = new WebchatController(
-    appConfig,
+  private val controller = new WebchatController(appConfig,
     mcc,
     selfAssessmentView,
     taxCreditsView,

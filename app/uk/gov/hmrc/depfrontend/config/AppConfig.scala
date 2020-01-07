@@ -40,12 +40,26 @@ class AppConfig @Inject()(config: Configuration,
     "https://hmrc-uk.digital.nuance.com/chatskins/launch/inqChatLaunch10006719.js"
   val contactUrl: String =
     "https://www.gov.uk/government/organisations/hm-revenue-customs/contact"
-  val incomeTaxHelpUrl: String =
-    "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-individuals-pensioners-and-employees"
-  val childBenefitHelpUrl: String =
-    "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/child-benefit"
-  val taxCreditsHelpUrl: String =
+
+
+  val selfAssessmentReturnUrl: String =
+    "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/self-assessment"
+  val taxCreditsEnquiriesReturnUrl: String =
     "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/tax-credits-enquiries"
-  val vatOnlineHelpUrl: String =
+  val childBenefitReturnUrl: String =
+    "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/child-benefit"
+  val incomeTaxEnquiriesReturnUrl: String =
+    "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/income-tax-enquiries-for-individuals-pensioners-and-employees"
+  val employerEnquiriesReturnUrl: String =
+    "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/employer-enquiries"
+  val vatEnquiriesReturnUrl: String =
+    "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/vat-enquiries"
+  val vatOnlineServicesHelpdeskReturnUrl: String =
     "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/vat-online-services-helpdesk"
+  val onlineServicesHelpdeskReturnUrl: String =
+    "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/online-services-helpdesk"
+  val nationalInsuranceReturnUrl: String =
+    "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/national-insurance-numbers"
+  val customsEnquiriesReturnUrl: String =
+    "https://www.gov.uk/government/organisations/hm-revenue-customs/contact/customs-international-trade-and-excise-enquiries"
 }

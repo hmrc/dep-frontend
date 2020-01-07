@@ -50,7 +50,8 @@ class WebchatControllerSpec
   val mcc = stubMessagesControllerComponents()
   implicit val messages = mcc.messagesApi.preferred(fakeRequest)
 
-  private val controller = new WebchatController(appConfig,
+  private val controller = new WebchatController(
+    appConfig,
     mcc,
     selfAssessmentView,
     taxCreditsView,
@@ -104,7 +105,6 @@ class WebchatControllerSpec
     "render self-assessment page" in {
       val result = controller.selfAssessment(fakeRequest)
       status(result) shouldBe OK
-
       contentAsString(result) shouldBe selfAssessmentView().toString
     }
 

@@ -14,14 +14,19 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.depfrontend.config.AppConfig
 @import uk.gov.hmrc.depfrontend.views.html._
 
-@this(main_template: MainTemplate)
+@this(
+  main_template: MainTemplate,
+  appConfig: AppConfig)
 
 @()(implicit request: Request[_], messages: play.api.i18n.Messages)
 
 @main_template(title = messages("global.nav.title")) {
     <h1>@messages("vat.online.helpdesk.title")</h1>
 
-    <h2>@messages("default.sub.heading")</h2>
-}
+    <p>
+        <a href="@appConfig.vatOnlineServicesHelpdeskReturnUrl">@messages("default.text.link.back.to.govuk.p1")</a>
+    </p>
+ }

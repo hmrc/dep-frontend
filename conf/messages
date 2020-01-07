@@ -3,11 +3,53 @@ global.nav.title=Ask HMRC - Webchat
 
 default.title=Webchat
 default.p1=???
+default.sub.heading=Use the web chat on the side of the page to talk to an adviser
 
+#Self Assessment Webchat
 self.assessment.title=Self Assessment Webchat
-self.assessment.sub_heading=Use the web chat on the side of the page to talk to an adviser
-self.assessment.p1=Advisers can only talk to you about Self Assessment. They will not be able to transfer you to another webchat team
+self.assessment.p1=Advisers can only talk to you about Self Assessment. They will not be able to transfer you to another webchat team.
 
+#Tax Credits Webchat
 tax.credits.title=Tax Credits Webchat
-tax.credits.sub_heading=Use the web chat on the side of the page to talk to an adviser
-tax.credits.p1=Advisers can only talk to you about Child Tax Credit and Working Tax Credit. They will not be able to transfer you to another webchat team
+tax.credits.p1=Advisers can only talk to you about Child Tax Credit and Working Tax Credit. They will not be able to transfer you to another webchat team.
+
+#Child Benefit Webchat
+child.benefit.title=Child Benefit Webchat
+child.benefit.p1=Advisers can only talk to you about Child Benefit. They will not be able to transfer you to another webchat team.
+
+#Employers Webchat
+employers.enquiries.title=Employers Webchat
+employers.enquiries.p1=Advisers can only talk to you about PAYE for employers. They will not be able to transfer you to another webchat team.
+employers.enquiries.p2=You’ll need your employer reference number or accounts office reference number.
+employers.enquiries.link.p1=Contact the
+employers.enquiries.link.text=Income Tax: general enquiries helpline 
+employers.enquiries.link.p2=for enquiries about your personal tax affairs.
+
+#VAT Enquiries Webchat
+vat.enquiries.title=VAT Webchat
+vat.enquiries.p1=Advisers can only talk to you about VAT, Making Tax Digital for VAT or using VAT online services. They will not be able to transfer you to another webchat team
+
+#VAT Online Service Webchat
+vat.online.helpdesk.title=VAT Online Service Webchat
+
+#Online Service Helpdesk Webchat
+online.services.title=Technical support with HMRC online services Webchat
+online.services.p1=Advisers can only talk to you about technical issues you’re having with HMRC online services.
+online.services.p2=They will not be able to transfer you to another webchat team, or help with questions about:
+online.services.income.tax.p1=your Income Tax – contact the
+online.services.income.tax.link=Income Tax Helpline
+online.services.child.benefit.p1=your Child Benefit – contact the
+online.services.child.benefit.link=Child Benefit Helpline
+online.services.tax.credits.p1=your Tax Credits – contact the
+online.services.tax.credits.link=Tax Credits Helpline
+online.services.vat.p1=logging into VAT online services – contact the
+online.services.vat.link=VAT Online Services Helpline
+
+#National Insurance Webchat
+national.insurance.title=National Insurance Webchat
+
+#Imports and Exports Webchat
+customs.title=Imports and Exports Webchat
+
+#Income Tax Enquiries
+income.tax.title=Income Tax General Enquiries Webchat

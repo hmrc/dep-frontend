@@ -25,5 +25,13 @@ lazy val microservice = Project(appName, file("."))
   .settings(integrationTestSettings(): _*)
   .settings(PlayKeys.playDefaultPort := 9956)
   .settings(
+    TwirlKeys.templateImports ++= Seq(
+      "play.twirl.api.HtmlFormat",
+      "play.twirl.api.HtmlFormat._",
+      "uk.gov.hmrc.play.views.html.helpers._",
+      "uk.gov.hmrc.play.views.html.layouts._"
+    )
+  )
+  .settings(
     scoverageSettings,
     resolvers += Resolver.jcenterRepo)

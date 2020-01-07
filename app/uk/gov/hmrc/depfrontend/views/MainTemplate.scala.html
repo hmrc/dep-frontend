@@ -14,23 +14,23 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.depfrontend.views.html.includes.ReturnLink
 @import uk.gov.hmrc.depfrontend.config.AppConfig
-@import uk.gov.hmrc.depfrontend.views.html.includes.return_link
+@import uk.gov.hmrc.play.views.html.layouts
 
 @this(
     govuk_wrapper: GovukWrapper,
     sidebar: Sidebar,
-    article: Article
+    article: Article,
+    return_link: ReturnLink,
+    appConfig: AppConfig
 )
 
 @(title: String,
-  sidebarLinks: Option[Html] = None,
-  contentHeader: Option[Html] = None,
-  bodyClasses: Option[String] = None,
-  mainClass: Option[String] = None)(mainContent: Html)(implicit request : Request[_], messages: Messages, appConfig: AppConfig)
-
-@import uk.gov.hmrc.play.views.html.layouts
-
+    sidebarLinks: Option[Html] = None,
+    contentHeader: Option[Html] = None,
+    bodyClasses: Option[String] = None,
+    mainClass: Option[String] = None)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
 @serviceInfoContent = {}
 
@@ -42,7 +42,7 @@
 
 @wrapMainContent = {
     @mainContent
-    @return_link()(appConfig)
+    @return_link
 }
 
 @webchatSessionId = @{
@@ -65,8 +65,7 @@
     <script id="webchat-tag" type="text/javascript" src=@appConfig.nuanceUrl></script>
 }
 
-@govuk_wrapper(appConfig = appConfig,
-               title = title,
+@govuk_wrapper(title = title,
                mainClass = mainClass,
                bodyClasses = bodyClasses,
                sidebar = sidebarContent,

@@ -17,6 +17,8 @@
 @import uk.gov.hmrc.depfrontend.config.AppConfig
 @import play.twirl.api.HtmlFormat
 @import views.html.layouts.GovUkTemplate
+@import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
+@import uk.gov.hmrc.play.views.html.{helpers => uiHelpers}
 
 @this(
     head:Head,
@@ -27,11 +29,11 @@
     main_content:MainContent,
     reportAProblemLink: ReportAProblemLink,
     hmrcGovUkTemplate: GovUkTemplate,
-    footer_links: FooterLinks
+    footer_links: FooterLinks,
+    appConfig: AppConfig
 )
 
-@(appConfig: AppConfig,
-        title: String,
+@(title: String,
         mainClass: Option[String] = None,
         mainDataAttributes: Option[Html] = None,
         bodyClasses: Option[String] = None,
@@ -41,10 +43,6 @@
         serviceInfoContent: Html = HtmlFormat.empty,
         scriptElem: Option[Html] = None,
         navTitle: String = "global.nav.title")(implicit request: Request[_], messages: play.api.i18n.Messages)
-
-
-@import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
-@import uk.gov.hmrc.play.views.html.{helpers => uiHelpers}
 
 @headContent = {
     @head(

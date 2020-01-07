@@ -17,10 +17,13 @@
 @import uk.gov.hmrc.depfrontend.config.AppConfig
 @import uk.gov.hmrc.depfrontend.views.html._
 
-@this(main_template: MainTemplate)
-@()(implicit request: Request[_], messages: play.api.i18n.Messages, appConfig: AppConfig)
+@this(
+    main_template: MainTemplate,
+    appConfig: AppConfig)
 
-@main_template(messages("global.nav.title")) {
+@()(implicit request: Request[_], messages: play.api.i18n.Messages)
+
+@main_template(title = messages("global.nav.title")) {
     <h1>@messages("online.services.title")</h1>
     <h2>@messages("default.sub.heading")</h2>
 

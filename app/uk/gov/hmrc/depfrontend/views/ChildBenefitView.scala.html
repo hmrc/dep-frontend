@@ -14,14 +14,20 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.depfrontend.config.AppConfig
 @import uk.gov.hmrc.depfrontend.views.html._
 
-@this(main_template: MainTemplate)
+@this(
+    main_template: MainTemplate,
+    appConfig: AppConfig)
 
 @()(implicit request: Request[_], messages: play.api.i18n.Messages)
 
 @main_template(title = messages("global.nav.title")) {
- <h1>@messages("child.benefit.title")</h1>
- <h2>@messages("default.sub.heading")</h2>
- <p>@messages("child.benefit.p1")</p>
+
+    <h1>@messages("child.benefit.title")</h1>
+
+    <p>
+        <a href=@appConfig.childBenefitReturnUrl>@messages("default.text.link.back.to.govuk.p1")</a>
+    </p>
 }

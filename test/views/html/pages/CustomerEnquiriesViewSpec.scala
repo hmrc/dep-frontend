@@ -36,7 +36,7 @@ class CustomerEnquiriesViewSpec extends ChatViewBehaviours {
     behave like normalPage(
       createView,
       "Ask HMRC - Webchat",
-      "Customs, international trade and excise: webchat",
+      "Imports and exports: webchat",
       "Return to Contact HMRC",
       returnUrl)
   }

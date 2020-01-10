@@ -31,7 +31,7 @@ online.services.title=Online services helpdesk: webchat
 national.insurance.title=National Insurance: webchat
 
 #Imports and Exports Webchat
-customs.title=Customs, international trade and excise: webchat
+customs.title=Imports and exports: webchat
 
 #Income Tax Enquiries
 income.tax.title=Income tax for individuals, pensioners and employees: webchat

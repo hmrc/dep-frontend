@@ -65,12 +65,6 @@ class WebchatControllerSpec
     vatOnlineServicesHelpdeskView,
     webChatView)
 
-  "should throw a RuntimeException if there is no mdtp cookie" in {
-    assertThrows[RuntimeException] {
-      controller.selfAssessment(FakeRequest("GET", "/"))
-    }
-  }
-
   "Query paramater URLs" should {
     "All optionable strings should be 200" in {
       forAll { (fromUrl: Option[String]) =>

@@ -42,12 +42,7 @@
     @mainContent
 }
 
-@webchatSessionId = @{
-    request.cookies.get("mdtp") match {
-    case Some(cookie) => cookie.value
-    case None => throw new RuntimeException("Cannot proceed without a mdtp cookie")
-    }
-}
+@webchatSessionId = @{ request.session.get("sessionId") }
 
 @scriptElem = {
    <div id="HMRC_Anchored_1"></div>

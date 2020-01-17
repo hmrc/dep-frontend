@@ -65,7 +65,7 @@ class WebchatControllerSpec
     vatOnlineServicesHelpdeskView,
     webChatView)
 
-  "Query paramater URLs" should {
+  "Query parameter URLs" should {
     "All optionable strings should be 200" in {
       forAll { (fromUrl: Option[String]) =>
         val result = controller.webchat(fromUrl)(fakeRequest)

@@ -12,4 +12,4 @@
 # Add all the application routes to the prod.routes file
 ->          /                                 prod.Routes
 
-GET         /webchat/test-only-page           uk.gov.hmrc.depfrontend.controllers.TestOnlyController.testOnly
+GET         /test-only/webchat/test-only-page           uk.gov.hmrc.depfrontend.controllers.TestOnlyController.testOnly

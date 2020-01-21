@@ -35,3 +35,6 @@ customs.title=Imports and exports: webchat
 
 #Income Tax Enquiries
 income.tax.title=Income tax for individuals, pensioners and employees: webchat
+
+#Test Only page
+testonly.title=Test only page

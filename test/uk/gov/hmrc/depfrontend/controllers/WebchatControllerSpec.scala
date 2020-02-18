@@ -23,6 +23,7 @@ import play.api.mvc.Cookie
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.depfrontend.config.AppConfig
+import uk.gov.hmrc.depfrontend.services.NuanceEncryptionService
 import uk.gov.hmrc.depfrontend.views.html._
 import uk.gov.hmrc.play.bootstrap.tools.Stubs.stubMessagesControllerComponents
 
@@ -46,6 +47,7 @@ class WebchatControllerSpec
   val vatEnquiriesView = app.injector.instanceOf[VatEnquiriesView]
   val vatOnlineServicesHelpdeskView = app.injector.instanceOf[VatOnlineServicesHelpdeskView]
   val webChatView = app.injector.instanceOf[WebChatView]
+  val nuanceEncryptionService = app.injector.instanceOf[NuanceEncryptionService]
 
   val mcc = stubMessagesControllerComponents()
   implicit val messages = mcc.messagesApi.preferred(fakeRequest)
@@ -63,7 +65,8 @@ class WebchatControllerSpec
     onlineServiceHelpdeskView,
     vatEnquiriesView,
     vatOnlineServicesHelpdeskView,
-    webChatView)
+    webChatView,
+    nuanceEncryptionService)
 
   "Query parameter URLs" should {
     "All optionable strings should be 200" in {

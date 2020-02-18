@@ -16,20 +16,23 @@
 
 package uk.gov.hmrc.depfrontend.models
 
+import com.google.inject.Inject
 import uk.gov.hmrc.depfrontend.services.NuanceEncryptionService
 import uk.gov.hmrc.http.HeaderCarrier
 
-case class EncryptedNuanceData(nuanceSessionId: String)
+case class EncryptedNuanceData @Inject()(nuanceSessionId: String)
 
 object EncryptedNuanceData {
 
-  def create(encryptionService: NuanceEncryptionService, hc: HeaderCarrier): EncryptedNuanceData = {
+  implicit val hc2: HeaderCarrier = HeaderCarrier()
+
+  def create(encryptionService: NuanceEncryptionService): EncryptedNuanceData = {
     EncryptedNuanceData(
-      encryptionService.nuanceSafeHash(sessionId(hc))
+      encryptionService.nuanceSafeHash(sessionId())
     )
   }
 
-  private def sessionId(hc: HeaderCarrier): String =
-    hc.sessionId.fold("")(_.value)
+  private def sessionId(): String =
+    hc2.sessionId.fold("")(_.value)
 }
 

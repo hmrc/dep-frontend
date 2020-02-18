@@ -66,9 +66,7 @@ class WebchatController @Inject()(appConfig: AppConfig,
   }
 
   def childBenefit: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(childBenefitView(
-      EncryptedNuanceData.create(nuanceEncryptionService, implicitly[HeaderCarrier])
-    )))
+    Future.successful(Ok(childBenefitView()))
   }
 
   def employerEnquiries: Action[AnyContent] = Action.async { implicit request =>

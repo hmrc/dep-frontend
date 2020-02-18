@@ -16,6 +16,7 @@
 
 @import uk.gov.hmrc.depfrontend.config.AppConfig
 @import uk.gov.hmrc.play.views.html.layouts
+@import uk.gov.hmrc.depfrontend.models.EncryptedNuanceData
 
 @this(
     govuk_wrapper: GovukWrapper,
@@ -28,7 +29,8 @@
     sidebarLinks: Option[Html] = None,
     contentHeader: Option[Html] = None,
     bodyClasses: Option[String] = None,
-    mainClass: Option[String] = None)(mainContent: Html)(implicit request : Request[_], messages: Messages)
+    mainClass: Option[String] = None,
+    encryptedNuanceData: EncryptedNuanceData)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
 @serviceInfoContent = {}
 
@@ -42,17 +44,14 @@
     @mainContent
 }
 
-@webchatSessionId = @{ request.session.get("sessionId") }
-
 @scriptElem = {
     @if(!appConfig.performanceTest){
    <div id="HMRC_Anchored_1"></div>
 
     <script type="text/javascript">
-        var nuanceData =
-            {
-                'mdtpdfSessionID': '@webchatSessionId'
-            }
+        var nuanceData = {
+            "mdtpdfSessionID" : "@{encryptedNuanceData.nuanceSessionId}"
+        }
     </script>
 
     <script id="webchat-tag" type="text/javascript" src=@appConfig.nuanceUrl></script>

@@ -21,29 +21,28 @@ import uk.gov.hmrc.depfrontend.services.NuanceEncryptionService
 import uk.gov.hmrc.http.HeaderCarrier
 
 /**
- * Encrypted nuanceSessionId data field which need to be sent to Nuance to support gov.uk
- * users microservice will pick up this encrypted value, and pass
- * on to Nuance.  Encryption is necessary to avoid plaintext JSON data in the HTML.
- *
- * This class implements the encryption algorithm as agreed in AIV-1751
- *
- * Each plaintext value is prefixed by a Sha512 hash for receiver verification purposes
- * Then, the combined result is encrypted with AES256CGM using a shared secret.
- *
- * nuanceSessionId: hashed SessionId value  (for gov.uk chat client session tracking)
- */
+  * Encrypted nuanceSessionId data field which need to be sent to Nuance to support gov.uk
+  * users microservice will pick up this encrypted value, and pass
+  * on to Nuance.  Encryption is necessary to avoid plaintext JSON data in the HTML.
+  *
+  * This class implements the encryption algorithm as agreed in AIV-1751
+  *
+  * Each plaintext value is prefixed by a Sha512 hash for receiver verification purposes
+  * Then, the combined result is encrypted with AES256CGM using a shared secret.
+  *
+  * nuanceSessionId: hashed SessionId value  (for gov.uk chat client session tracking)
+  */
 
 case class EncryptedNuanceData @Inject()(nuanceSessionId: String)
 
 object EncryptedNuanceData {
 
-  implicit val hc2: HeaderCarrier = HeaderCarrier()
+  implicit val hc: HeaderCarrier = HeaderCarrier()
 
   def create(encryptionService: NuanceEncryptionService): String = {
-      "ENCRYPTED-" + encryptionService.nuanceSafeHash(sessionId())
+    encryptionService.nuanceSafeHash(sessionId())
   }
 
-  private def sessionId(): String =
-    hc2.sessionId.fold("")(_.value)
+  private def sessionId(): String = hc.sessionId.fold("")(_.value)
 }
 

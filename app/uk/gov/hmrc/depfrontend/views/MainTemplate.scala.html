@@ -47,7 +47,7 @@
 }
 
 
-@webchatSessionId = @{ EncryptedNuanceData.create(nuanceEncryptionService) }
+@nuanceHashedSessionId = @{ EncryptedNuanceData.create(nuanceEncryptionService) }
 
 @scriptElem = {
     @if(!appConfig.performanceTest){
@@ -55,7 +55,7 @@
 
     <script type="text/javascript">
         var nuanceData = {
-            "mdtpdfSessionID" : '@webchatSessionId'
+            "mdtpdfSessionID" : '@nuanceHashedSessionId'
         }
     </script>
 

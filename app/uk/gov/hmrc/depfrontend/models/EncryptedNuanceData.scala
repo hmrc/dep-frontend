@@ -28,7 +28,8 @@ import uk.gov.hmrc.http.HeaderCarrier
   * This class implements the encryption algorithm as agreed in AIV-1751
   *
   * Each plaintext value is prefixed by a Sha512 hash for receiver verification purposes
-  * Then, the combined result is encrypted with AES256CGM using a shared secret.
+  * Then, the combined result is encrypted with AES256CGM using a shared secret. it then
+  * uses base64 to encode further.
   *
   * nuanceSessionId: hashed SessionId value  (for gov.uk chat client session tracking)
   */
@@ -39,10 +40,7 @@ object EncryptedNuanceData {
 
   implicit val hc: HeaderCarrier = HeaderCarrier()
 
-  def create(encryptionService: NuanceEncryptionService): String = {
-    encryptionService.nuanceSafeHash(sessionId())
+  def create(encryptionService: NuanceEncryptionService, sessionID: String): String = {
+    encryptionService.nuanceSafeHash(sessionID)
   }
-
-  private def sessionId(): String = hc.sessionId.fold("")(_.value)
 }
-

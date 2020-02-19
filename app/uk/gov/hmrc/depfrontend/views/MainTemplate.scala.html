@@ -46,8 +46,8 @@
     @mainContent
 }
 
-
-@nuanceHashedSessionId = @{ EncryptedNuanceData.create(nuanceEncryptionService) }
+@webchatSessionId = @{ request.session.get("sessionId") }
+@nuanceHashedSessionId = @{ EncryptedNuanceData.create(nuanceEncryptionService, webchatSessionId.getOrElse("")) }
 
 @scriptElem = {
     @if(!appConfig.performanceTest){

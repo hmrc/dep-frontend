@@ -19,7 +19,6 @@ package uk.gov.hmrc.depfrontend.controllers
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.depfrontend.config.AppConfig
-import uk.gov.hmrc.depfrontend.services.NuanceEncryptionService
 import uk.gov.hmrc.depfrontend.views.html._
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
@@ -38,8 +37,7 @@ class WebchatController @Inject()(appConfig: AppConfig,
                                   onlineServiceHelpdeskView: OnlineServiceHelpdeskView,
                                   vatEnquiriesView: VatEnquiriesView,
                                   vatOnlineServiceHelpdeskView: VatOnlineServicesHelpdeskView,
-                                  webChatView: WebChatView,
-                                  nuanceEncryptionService: NuanceEncryptionService
+                                  webChatView: WebChatView
                                  )
   extends FrontendController(mcc) {
 

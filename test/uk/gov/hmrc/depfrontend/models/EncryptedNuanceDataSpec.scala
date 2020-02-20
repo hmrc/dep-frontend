@@ -19,8 +19,6 @@ package uk.gov.hmrc.depfrontend.models
 import org.scalatest.{Matchers, WordSpec}
 import play.api.Configuration
 import uk.gov.hmrc.depfrontend.services.NuanceEncryptionService
-import uk.gov.hmrc.http.logging.SessionId
-import uk.gov.hmrc.depfrontend.models.EncryptedNuanceData
 
 case class EncryptedNuanceDataSpec() extends WordSpec with Matchers {
 

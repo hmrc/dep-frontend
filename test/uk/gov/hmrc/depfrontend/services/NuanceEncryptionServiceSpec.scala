@@ -18,45 +18,29 @@ package uk.gov.hmrc.depfrontend.services
 
 import org.scalatest.{Matchers, WordSpec}
 import play.api.Configuration
-import uk.gov.hmrc.crypto
 
-class NuanceEncryptionServiceSpec extends WordSpec {
+class NuanceEncryptionServiceSpec extends WordSpec with Matchers {
 
-  class NuanceCryptoServiceTest(configuration: Configuration) extends NuanceEncryptionService(configuration) {
+  "Crypto service" should {
 
-    def decryptField(cipherText: String): (String, String) = {
-      val stripped: String = cipherText.stripPrefix("FIELD_PREFIX")
-      val plainText: String = crypto.Crypted(stripped).value
-      plainText.split("-").toList match {
-        case ::(hashed, ::(raw, Nil)) => (hashed, raw)
-        case _ => throw new RuntimeException(s"Unable to decrypt cipherText: $cipherText")
-      }
-    }
-
-
-    "Crypto service" should {
-
-      "encrypt plain text field which can be decrypted using correct algorithm" in {
-        val configuration = Configuration.from(
-          Map(
-            "request-body-encryption.hashing-key" -> "yNhI04vHs9<_HWbC`]20u`37=NGLGYY5:0Tg5?y`W<NoJnXWqmjcgZBec@rOxb^G",
-            "request-body-encryption.key" -> "QmFyMTIzNDVCYXIxMjM0NQ==",
-            "request-body-encryption.previousKeys" -> List.empty
-          )
+    "encrypt plain text field which can be decrypted using correct algorithm" in {
+      val configuration = Configuration.from(
+        Map(
+          "request-body-encryption.hashing-key" -> "yNhI04vHs9<_HWbC`]20u`37=NGLGYY5:0Tg5?y`W<NoJnXWqmjcgZBec@rOxb^G",
+          "request-body-encryption.key" -> "QmFyMTIzNDVCYXIxMjM0NQ==",
+          "request-body-encryption.previousKeys" -> List.empty
         )
+      )
 
-        val service = new NuanceCryptoServiceTest(configuration)
+      val service = new NuanceEncryptionService(configuration)
 
-        val fieldValue = "abc123"
+      val fieldValue = "abc123"
+      val expectedHash: String = service.nuanceSafeHash(fieldValue)
+      val hashedValue: String = "PEc4edH3KVYOl8NZ1kN8jTVhO2YRWJh70BS55IhtgjjBe0iZVtnNp6iSi1gMhdgcNqnLMFEJXmaDORRB2VSNRwJJ"
 
-        val expectedHash: String = service.hashField(fieldValue)
-
-        val (outputHash, outputRaw) = service.decryptField(fieldValue)
-
-        outputHash shouldBe expectedHash // hash seems correct
-
-        outputRaw shouldBe fieldValue // we got the original value out
-      }
+      fieldValue shouldNot be(expectedHash)
+      hashedValue shouldBe expectedHash
+      expectedHash should fullyMatch regex "^[a-zA-Z0-9]*$"
     }
   }
 }

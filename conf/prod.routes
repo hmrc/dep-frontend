@@ -1,5 +1,5 @@
 # Add all the application routes to the app.routes file
-->          /ask-hmrc                   app.Routes
+->          /ask-hmrc-temp              app.Routes
 ->          /                           health.Routes
 ->          /template                   template.Routes
 

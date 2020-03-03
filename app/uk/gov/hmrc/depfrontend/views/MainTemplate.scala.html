@@ -16,12 +16,16 @@
 
 @import uk.gov.hmrc.depfrontend.config.AppConfig
 @import uk.gov.hmrc.play.views.html.layouts
+@import uk.gov.hmrc.depfrontend.models.EncryptedNuanceData
+@import uk.gov.hmrc.depfrontend.services.NuanceEncryptionService
 
 @this(
     govuk_wrapper: GovukWrapper,
     sidebar: Sidebar,
     article: Article,
-    appConfig: AppConfig
+    appConfig: AppConfig,
+    encryptedNuanceData: EncryptedNuanceData,
+    nuanceEncryptionService: NuanceEncryptionService
 )
 
 @(title: String,
@@ -43,16 +47,16 @@
 }
 
 @webchatSessionId = @{ request.session.get("sessionId") }
+@nuanceHashedSessionId = @{ EncryptedNuanceData.create(nuanceEncryptionService, webchatSessionId.getOrElse("")) }
 
 @scriptElem = {
     @if(!appConfig.performanceTest){
    <div id="HMRC_Anchored_1"></div>
 
     <script type="text/javascript">
-        var nuanceData =
-            {
-                'mdtpdfSessionID': '@webchatSessionId'
-            }
+        var nuanceData = {
+            "mdtpdfSessionID" : '@nuanceHashedSessionId'
+        }
     </script>
 
     <script id="webchat-tag" type="text/javascript" src=@appConfig.nuanceUrl></script>

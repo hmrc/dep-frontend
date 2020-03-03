@@ -37,8 +37,9 @@ class WebchatController @Inject()(appConfig: AppConfig,
                                   onlineServiceHelpdeskView: OnlineServiceHelpdeskView,
                                   vatEnquiriesView: VatEnquiriesView,
                                   vatOnlineServiceHelpdeskView: VatOnlineServicesHelpdeskView,
-                                  webChatView: WebChatView)
-    extends FrontendController(mcc) {
+                                  webChatView: WebChatView
+                                 )
+  extends FrontendController(mcc) {
 
   implicit val config: AppConfig = appConfig
 
@@ -46,7 +47,7 @@ class WebchatController @Inject()(appConfig: AppConfig,
     implicit request =>
       from match {
         case Some("self-assessment") => Future.successful(Ok(selfAssessmentView()))
-        case Some("tax-credits")     => Future.successful(Ok(taxCreditsView()))
+        case Some("tax-credits") => Future.successful(Ok(taxCreditsView()))
         case _ =>
           Future.successful(Ok(webChatView()))
       }

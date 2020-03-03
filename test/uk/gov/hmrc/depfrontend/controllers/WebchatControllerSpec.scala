@@ -23,6 +23,7 @@ import play.api.mvc.Cookie
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.depfrontend.config.AppConfig
+import uk.gov.hmrc.depfrontend.services.NuanceEncryptionService
 import uk.gov.hmrc.depfrontend.views.html._
 import uk.gov.hmrc.play.bootstrap.tools.Stubs.stubMessagesControllerComponents
 
